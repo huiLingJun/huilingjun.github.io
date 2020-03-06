@@ -421,15 +421,19 @@
         <div class="entry-content">
           <p>今天解决了卡了几天的小bug，甚是开心，哈哈哈哈哈哈哈······好想发表情包^_^</p>
 <p><img src="/images/cover/(3).jpg.webp" alt=""></p>
-<h2 id="The-One"><a href="#The-One" class="headerlink" title="The One"></a>The One</h2><pre><code>Vue+elemet ui 项目中解决&quot;分页查询&quot;的小bug</code></pre><h3 id="Bug："><a href="#Bug：" class="headerlink" title="Bug："></a>Bug：</h3><pre><code>vue和element实现的后台分页，当前是第二页，点击搜索，强制设置currentpage为1，但是当前页还是第二页没有改变。
-通俗点就是，先点的那一页，查询了清空后，返回再点那一页就没反应（除了第一页以外）。</code></pre><h3 id="Way"><a href="#Way" class="headerlink" title="Way"></a>Way</h3><pre><code>//页面
+<h1 id="The-One"><a href="#The-One" class="headerlink" title="The One"></a>The One</h1><pre><code>Vue+elemet ui 项目中解决&quot;分页查询&quot;的小bug</code></pre><h1 id="Bug"><a href="#Bug" class="headerlink" title="Bug:"></a>Bug:</h1><pre><code>vue和element实现的后台分页，当前是第二页，点击搜索，强制设置currentpage为1，但是当前页还是第二页没有改变。
+通俗点就是，先点的那一页，查询了清空后，返回再点那一页就没反应（除了第一页以外）。</code></pre><h1 id="Way"><a href="#Way" class="headerlink" title="Way:"></a>Way:</h1><pre><code>//页面
 [el-pagination v-if=&quot;pageshow&quot;][/el-pagination]
 
 使用v-if绑定数据，当每次搜索的时候就注销掉前一个分页Dom，画面刷新完毕后，渲染一个同样的分页，重新渲染必须放到$nextTick中，这样在使用分页就不会出现问题了。
 search是一个方法在methods中，调用的时候@click=”search”绑定到 搜索按钮上 就可以了.
 
+------
 search() {
-    this.currentPage = 1</code></pre><p>　　    this.pageshow = false<br>　　    this.getList();<br>　　    this.$nextTick(() =&gt; {<br>　　        this.pageshow = true<br>　　    })<br>    },</p>
+    this.currentPage = 1;
+    this.pageshow = false;
+    this.getList();
+    this.$nextTick(() =&gt; {</code></pre><p>　　        this.pageshow = true;<br>        })<br>    },<br>    ——</p>
 
         </div>
         <!-- .entry-content -->
