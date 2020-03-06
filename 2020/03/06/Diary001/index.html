@@ -428,12 +428,12 @@
 使用v-if绑定数据，当每次搜索的时候就注销掉前一个分页Dom，画面刷新完毕后，渲染一个同样的分页，重新渲染必须放到$nextTick中，这样在使用分页就不会出现问题了。
 search是一个方法在methods中，调用的时候@click=”search”绑定到 搜索按钮上 就可以了.
 
-------
+```yml
 search() {
     this.currentPage = 1;
     this.pageshow = false;
     this.getList();
-    this.$nextTick(() =&gt; {</code></pre><p>　　        this.pageshow = true;<br>        })<br>    },<br>    ——</p>
+    this.$nextTick(() =&gt; {</code></pre><p>　　        this.pageshow = true;<br>        })<br>    },<br>    ```</p>
 
         </div>
         <!-- .entry-content -->
