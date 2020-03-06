@@ -389,7 +389,7 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(http://image.biaobaiju.com/uploads/20190928/19/1569669752-PmXjylGNuz.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://image.biaobaiju.com/uploads/20190928/19/1569669752-PmXjylGNuz.jpg">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3192377170,2283868551&amp;fm=26&amp;gp=0.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3192377170,2283868551&amp;fm=26&amp;gp=0.jpg">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
@@ -421,11 +421,15 @@
         <div class="entry-content">
           <p>今天解决了卡了几天的小bug，甚是开心，哈哈哈哈哈哈哈······好想发表情包^_^</p>
 <p><img src="/images/cover/(3).jpg.webp" alt=""></p>
-<h2 id="The-One"><a href="#The-One" class="headerlink" title="The One"></a>The One</h2><p>Vue+elemet ui 项目中解决”分页查询”的小bug</p>
-<h2 id="Bug："><a href="#Bug：" class="headerlink" title="Bug："></a>Bug：</h2><p>vue和element实现的后台分页，当前是第二页，点击搜索，强制设置currentpage为1，但是当前页还是第二页没有改变。<br>通俗点就是，先点的那一页，查询了清空后，返回再点那一页就没反应（除了第一页以外）。</p>
-<h2 id="Way"><a href="#Way" class="headerlink" title="Way"></a>Way</h2><p>//页面<br><el-pagination v-if="pageshow"></el-pagination></p>
-<p>使用v-if绑定数据，当每次搜索的时候就注销掉前一个分页Dom，画面刷新完毕后，渲染一个同样的分页，重新渲染必须放到$nextTick中，这样在使用分页就不会出现问题了。<br>search是一个方法在methods中，调用的时候@click=”search”绑定到 搜索按钮上 就可以了</p>
-<p>search() {<br>    this.currentPage = 1<br>　　this.pageshow = false<br>　　this.getList();<br>　　this.$nextTick(() =&gt; {<br>　　  this.pageshow = true<br>　　})<br>},</p>
+<h2 id="The-One"><a href="#The-One" class="headerlink" title="The One"></a>The One</h2><pre><code>Vue+elemet ui 项目中解决&quot;分页查询&quot;的小bug</code></pre><h3 id="Bug："><a href="#Bug：" class="headerlink" title="Bug："></a>Bug：</h3><pre><code>vue和element实现的后台分页，当前是第二页，点击搜索，强制设置currentpage为1，但是当前页还是第二页没有改变。
+通俗点就是，先点的那一页，查询了清空后，返回再点那一页就没反应（除了第一页以外）。</code></pre><h3 id="Way"><a href="#Way" class="headerlink" title="Way"></a>Way</h3><pre><code>//页面
+[el-pagination v-if=&quot;pageshow&quot;][/el-pagination]
+
+使用v-if绑定数据，当每次搜索的时候就注销掉前一个分页Dom，画面刷新完毕后，渲染一个同样的分页，重新渲染必须放到$nextTick中，这样在使用分页就不会出现问题了。
+search是一个方法在methods中，调用的时候@click=”search”绑定到 搜索按钮上 就可以了.
+
+search() {
+    this.currentPage = 1</code></pre><p>　　    this.pageshow = false<br>　　    this.getList();<br>　　    this.$nextTick(() =&gt; {<br>　　        this.pageshow = true<br>　　    })<br>    },</p>
 
         </div>
         <!-- .entry-content -->
@@ -454,23 +458,6 @@
       <div class="toc" style="background: none;"></div>
       <section class="post-squares nextprev">
         
-        
-          
-            <div class="post-nepre full next">
-          
-            <a href="/2019/10/23/rememder/" rel="next">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="">
-              </div>
-              <span class="label">
-              Next Post</span>
-              <div class="info">
-                <h3>
-                rememder</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
         
       </section>
       
