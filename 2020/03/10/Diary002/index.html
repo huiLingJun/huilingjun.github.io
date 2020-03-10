@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">huilingjun</title>
+  <title itemprop="name">Diary | huilingjun</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -383,166 +383,194 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=158717064,1237715512&amp;fm=26&amp;gp=0.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=158717064,1237715512&amp;fm=26&amp;gp=0.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Diary</h1>
+      <p class="entry-census">
+        <span>
+          <a href="huilingjun.github.io">
+            <img src="http://img1.imgtn.bdimg.com/it/u=3588115084,700427085&fm=11&gp=0.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="huilingjun.github.io">huilingjun</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-3-10<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
 <div id="content" class="site-content">
-  
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">欢迎来到小菜鸡的博客，嘿嘿嘿...</div>
-  </div>
-  
-  <div class="top-feature-row">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://huilingjun.github.io" target="_blank">
-        <div class="img">
-          <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/startdash/sakura.md.png">
-        </div>
-        <div class="info">
-          <h3>Sakura</h3>
-          <p>哟西</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://huilingjun.github.io" target="_blank">
-        <div class="img">
-          <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/startdash/bilibili.jpg">
-        </div>
-        <div class="info">
-          <h3>Bilibili</h3>
-          <p>ComeOn</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://huilingjun.github.io" target="_blank">
-        <div class="img">
-          <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/startdash/wangshiwu.jpg">
-        </div>
-        <div class="info">
-          <h3>惠玲君的万事屋</h3>
-          <p>哦豁</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-</div>
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true"></i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <p>今日记录一下网上学习到的关于elemetUI的dialog弹窗拖拽的方法</p>
+<p><img src="/images/cover/(8).jpg.webp" alt=""></p>
+<h1 id="The-One"><a href="#The-One" class="headerlink" title="The One"></a>The One</h1><pre><code>Vue+elemet ui 项目中el-dialog对话框拖拽的方法</code></pre><h1 id="Way"><a href="#Way" class="headerlink" title="Way:"></a>Way:</h1><pre><code>//页面中在el-dialog的地方加入v-dialogDrag
+&lt;el-dialog title=&quot;收货地址&quot; :visible.sync=&quot;dialogTableVisible&quot; :modal=&#39;false&#39; v-dialogDrag &gt;
+...
+&lt;/el-dialog&gt;
+
+// v-dialogDrag: 弹窗拖拽
+Vue.directive(&#39;dialogDrag&#39;, {
+    bind(el, binding, vnode, oldVnode) {
+        const dialogHeaderEl = el.querySelector(&#39;.el-dialog__header&#39;);
+        const dragDom = el.querySelector(&#39;.el-dialog&#39;);
+        dialogHeaderEl.style.cursor = &#39;move&#39;;
+
+        // 获取原有属性 ie dom元素.currentStyle 火狐谷歌 window.getComputedStyle(dom元素, null);
+        const sty = dragDom.currentStyle || window.getComputedStyle(dragDom, null);
+        dialogHeaderEl.onmousedown = (e) =&gt; {
+            // 鼠标按下，计算当前元素距离可视区的距离
+            const disX = e.clientX - dialogHeaderEl.offsetLeft;
+            const disY = e.clientY - dialogHeaderEl.offsetTop;
+
+            // 获取到的值带px 正则匹配替换
+            let styL, styT
+
+            // 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
+            if (sty.left.includes(&#39;%&#39;)) {
+              styL = +document.body.clientWidth * (+sty.left.replace(/\%/g, &#39;&#39;) / 100);
+              styT = +document.body.clientHeight * (+sty.top.replace(/\%/g, &#39;&#39;) / 100);
+            } else {
+              styL = +sty.left.replace(/\px/g, &#39;&#39;);
+              styT = +sty.top.replace(/\px/g, &#39;&#39;);
+            }
+
+            document.onmousemove = function(e) {
+              // 通过事件委托，计算移动的距离
+              const l = e.clientX - disX;
+              const t = e.clientY - disY;
+              // 移动当前元素
+              dragDom.style.left = `${l + styL}px`;
+              dragDom.style.top = `${t + styT}px`;
+              // 将此时的位置传出去
+              // binding.value({x:e.pageX,y:e.pageY});
+            }
+
+            document.onmouseup = function(e) {
+              document.onmousemove = null
+              document.onmouseup = null
+            }
+        }
+    }
+})
+
+// v-dialogDragWidth: 弹窗宽度拖大 拖小
+Vue.directive(&#39;dialogDragWidth&#39;, {
+    bind(el, binding, vnode, oldVnode) {
+        const dragDom = binding.value.$el.querySelector(&#39;.el-dialog&#39;);
+        el.onmousedown = (e) =&gt; {
+            // 鼠标按下，计算当前元素距离可视区的距离
+            const disX = e.clientX - el.offsetLeft;
+
+            document.onmousemove = function(e) {
+              e.preventDefault() // 移动时禁用默认事件
+              // 通过事件委托，计算移动的距离
+              const l = e.clientX - disX;
+              dragDom.style.width = `${l}px`;
+            }
+            document.onmouseup = function(e) {
+              document.onmousemove = null;
+              document.onmouseup = null;
+            }
+        }
+    }
+})</code></pre>
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2020/03/06/Diary001/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3192377170,2283868551&fm=26&gp=0.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3192377170,2283868551&fm=26&gp=0.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Diary</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2020/03/06/Diary001/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3192377170,2283868551&amp;fm=26&amp;gp=0.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-6 15:03</div>
-      <a href="/2020/03/06/Diary001/" class="post-title">
-        <h3>Diary</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/web/">web<em>·</em></a>
-          
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/%E6%97%A5%E8%AE%B0/">日记</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Diary</p>
-        <div class="post-bottom">
-          <a href="/2020/03/06/Diary001/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="huilingjun.github.io" class="profile gravatar"><img src="http://img1.imgtn.bdimg.com/it/u=3588115084,700427085&fm=11&gp=0.jpg" itemprop="image" alt="huilingjun" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="huilingjun.github.io" itemprop="url" rel="author">huilingjun</a>
+            </h3>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2020/03/10/Diary002/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=158717064,1237715512&amp;fm=26&amp;gp=0.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2020-3-10 17:03</div>
-      <a href="/2020/03/10/Diary002/" class="post-title">
-        <h3>Diary</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/web/">web<em>·</em></a>
-          
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/%E6%97%A5%E8%AE%B0/">日记</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Diary</p>
-        <div class="post-bottom">
-          <a href="/2020/03/10/Diary002/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-
-
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!--  -->
-  </div>
-  
+        <hr>
+        <p><i class="iconfont icon-write"></i>萌新Web前端</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+
 
     </div>    
     <div class="ins-search">
