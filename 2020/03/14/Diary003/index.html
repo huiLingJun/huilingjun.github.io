@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">archive_a | huilingjun</title>
+  <title itemprop="name">Diary | huilingjun</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -383,91 +383,198 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 75px;">
-</div>
-<div id="content" class="site-content">
-  <div id="main">
-    <header class="page-header">
-      <h1 class="cat-title">
-      归档</h1>
-      <span class="cat-des">
-        <p>
-        Archives</p>
-      </span>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(http://pic.qqtn.com/up/2017-8/201708250916123000715.png);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="http://pic.qqtn.com/up/2017-8/201708250916123000715.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      Diary</h1>
+      <p class="entry-census">
+        <span>
+          <a href="huilingjun.github.io">
+            <img src="http://img1.imgtn.bdimg.com/it/u=3588115084,700427085&fm=11&gp=0.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="huilingjun.github.io">huilingjun</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-3-14<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
-    <div id="main-part">
-      <article class="art">
-        <div class="art-main">
-          <div class="art-content">
-            <div id="archives">
-              <p style="text-align:right;">
-                [<span id="al_expand_collapse" style="cursor: s-resize;">
-                全部展开/收缩</span>
-              ]</p>
-              
-              
-              
-              
-              
-                
-                <h3 class="al_year">2020年</h3>
-              
-              
-                
-                <ul class="al_mon_list">
-                  <li class="al_li">
-                    <span class="al_mon" style="cursor: s-resize;">
-                      03月(<span id="post-num">
-                      3</span>
-                    篇文章)</span>
-                    <ul class="al_post_list" style="">
-              
-                      <li>
-                        <a href="/2020/03/06/Diary001/">
-                          <span style="color:#0bf;">
-                          06日15:13:00</span>
-                          Diary
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/03/10/Diary002/">
-                          <span style="color:#0bf;">
-                          10日17:30:00</span>
-                          Diary
-                        </a>
-                      </li>
-                      
-              
-              
-              
-              
-              
-                      <li>
-                        <a href="/2020/03/14/Diary003/">
-                          <span style="color:#0bf;">
-                          14日17:30:00</span>
-                          Diary
-                        </a>
-                      </li>
-                      
-                    </ul>
-                  </li>
-                </ul>
-              
-              
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <p><img src="/images/cover/(9).jpg.webp" alt=""></p>
+<h1 id="The-One"><a href="#The-One" class="headerlink" title="The One"></a>The One</h1><pre><code>******VUE骚操作之this.$options.data()【大概一分钟】******
+    重置vue组件的data数据
+在vue单文件组件里有时需要重置data中的数据，比如表单填写一半，用户想重新填写。</code></pre><h2 id="Way"><a href="#Way" class="headerlink" title="Way:"></a>Way:</h2><pre><code>//重置表单方法
+this.form = this.$options.data().form;
+也可以通过给组件 $data 对象赋值来重置来重置整个 $data。
+this.$data = this.$options.data();
+
+结语：
+vue组件可以通过 this.$options 对象获取你编写的任何方法，比如 created( ) 生命周期函数，发现vue新玩法，偷笑.jpg</code></pre><hr>
+<h1 id="The-Two"><a href="#The-Two" class="headerlink" title="The Two"></a>The Two</h1><pre><code>******vue+elemetUI的el-table点击分页时保存勾选框******</code></pre><h2 id="Way-1"><a href="#Way-1" class="headerlink" title="Way:"></a>Way:</h2><pre><code>let allTableData = this.setOtherData.tableData;
+let start = (this.recentPage - 1) * this.recordCount;
+let end = this.recentPage * this.recordCount - 1;
+this.tableData = [];
+for (var i = start; i &lt;= end; i++) {
+  if (i &gt;= allTableData.length) {
+    return;
+  }
+  this.tableData.push(allTableData[i]);
+}
+// this.$refs.multipleTable.clearSelection();   “去掉”表格的清除勾选方法</code></pre><hr>
+<h1 id="The-Three"><a href="#The-Three" class="headerlink" title="The Three"></a>The Three</h1><pre><code>******vue自动刷新的几种方法******</code></pre><h2 id="Way-2"><a href="#Way-2" class="headerlink" title="Way:"></a>Way:</h2><pre><code>1、window.location.reload(),是原生JS提供的方法，this.$router.go(0):是vue路由里面的一种方法，这两种方法都可以达到页面刷新的目的，简单粗暴，但是用户体验不好，相当于按F5刷新页面，会有短暂的白屏，相当于页面的重新载入。
+2、通过路由跳转的方法刷新，具体思路是点击按钮跳转一个空白页，然后再马上跳回来：
+        当前页面：
+            &lt;el-button type=&quot;primary&quot; class=&quot;btn&quot; @click=&quot;btnaction&quot;&gt;摁我刷新页面&lt;/el-button&gt;
+            btnaction() {
+            //    location.reload()
+            //  this.$router.go(0)
+                this.$router.replace({
+                    path:&#39;/empty&#39;,
+                    name:&#39;empty&#39;
+                })
+            }
+        空白页面：
+            created(){
+                this.$router.replace({
+                    path:&#39;/&#39;,
+                    name:&#39;father&#39;
+                })
+            }
+    当点击按钮时地址栏会有快速的地址切换过程。
+3、控制&lt;router-view&gt;&lt;/router-view&gt;的显示与否，在全局组件注册一个方法，该方法控制router-view的显示与否，在子组件调用即可：
+    App.vue:
+        &lt;template&gt;
+            &lt;div id=&quot;app&quot;&gt;
+                &lt;router-view v-if=&quot;isRouterAlive&quot;&gt;&lt;/router-view&gt;
+            &lt;/div&gt;
+        &lt;/template&gt;
+
+        &lt;script&gt;
+        export default {
+            name: &#39;App&#39;,
+            provide() {   // 注册一个方法
+                return {
+                    reload: this.reload
+                }
+            },
+            data() {
+                return {
+                  isRouterAlive: true
+                }
+            },
+            methods: {
+                reload() {
+                    this.isRouterAlive = false
+                    this.$nextTick(function() {
+                        this.isRouterAlive = true
+                        console.log(&#39;reload&#39;)
+                    })
+                }
+            }
+        }
+        &lt;/script&gt;
+    当前组件：
+        inject: [&#39;reload&#39;], // 引入方法
+        this.reload()   //调用方法</code></pre><hr>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
             </div>
           </div>
         </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
       </article>
-    </div>
-  </div>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2020/03/10/Diary002/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=158717064,1237715512&fm=26&gp=0.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=158717064,1237715512&fm=26&gp=0.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Diary</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="huilingjun.github.io" class="profile gravatar"><img src="http://img1.imgtn.bdimg.com/it/u=3588115084,700427085&fm=11&gp=0.jpg" itemprop="image" alt="huilingjun" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="huilingjun.github.io" itemprop="url" rel="author">huilingjun</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>萌新Web前端</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+
 
     </div>    
     <div class="ins-search">
