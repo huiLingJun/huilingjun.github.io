@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Diary | huilingjun</title>
+  <title itemprop="name">奇怪的知识增加了（一） | huilingjun</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -393,7 +393,7 @@
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      Diary</h1>
+      奇怪的知识增加了（一）</h1>
       <p class="entry-census">
         <span>
           <a href="huilingjun.github.io">
@@ -421,7 +421,7 @@
         <div class="entry-content">
           <p>今天解决了卡了几天的小bug，甚是开心，哈哈哈哈哈哈哈······好想发表情包^_^</p>
 <p><img src="/images/cover/(3).jpg.webp" alt=""></p>
-<h1 id="The-One"><a href="#The-One" class="headerlink" title="The One"></a>The One</h1><pre><code>Vue+elemet ui 项目中解决&quot;分页查询&quot;的小bug</code></pre><h1 id="Bug"><a href="#Bug" class="headerlink" title="Bug:"></a>Bug:</h1><pre><code>vue和element实现的后台分页，当前是第二页，点击搜索，强制设置currentpage为1，但是当前页还是第二页没有改变。
+<h1 id="The-One-Vue-elemet-ui-项目中解决”分页查询”的小bug"><a href="#The-One-Vue-elemet-ui-项目中解决”分页查询”的小bug" class="headerlink" title="The One   Vue+elemet ui 项目中解决”分页查询”的小bug"></a>The One   Vue+elemet ui 项目中解决”分页查询”的小bug</h1><h1 id="Bug"><a href="#Bug" class="headerlink" title="Bug:"></a>Bug:</h1><pre><code>vue和element实现的后台分页，当前是第二页，点击搜索，强制设置currentpage为1，但是当前页还是第二页没有改变。
 通俗点就是，先点的那一页，查询了清空后，返回再点那一页就没反应（除了第一页以外）。</code></pre><h1 id="Way"><a href="#Way" class="headerlink" title="Way:"></a>Way:</h1><pre><code>//页面
 &lt;el-pagination v-if=&quot;pageshow&quot;&gt;&lt;/el-pagination&gt;
 
@@ -434,7 +434,195 @@ search() {
     this.pageshow = false;
     this.getList();
     this.$nextTick(() =&gt; { this.pageshow = true; })    
-},</code></pre>
+},</code></pre><h1 id="The-Two-Vue-elemet-ui-项目中el-dialog对话框拖拽的方法-2020-3-10-17-30"><a href="#The-Two-Vue-elemet-ui-项目中el-dialog对话框拖拽的方法-2020-3-10-17-30" class="headerlink" title="The Two  Vue+elemet ui 项目中el-dialog对话框拖拽的方法  [2020/3/10 17:30]"></a>The Two  Vue+elemet ui 项目中el-dialog对话框拖拽的方法  [2020/3/10 17:30]</h1><h1 id="Way-1"><a href="#Way-1" class="headerlink" title="Way"></a>Way</h1><pre><code>//页面中在el-dialog的地方加入v-dialogDrag
+&lt;el-dialog title=&quot;收货地址&quot; :visible.sync=&quot;dialogTableVisible&quot; :modal=&#39;false&#39; v-dialogDrag &gt;
+...
+&lt;/el-dialog&gt;
+
+//在main.js文件中引入
+// v-dialogDrag: 弹窗拖拽
+Vue.directive(&#39;dialogDrag&#39;, {
+    bind(el, binding, vnode, oldVnode) {
+        const dialogHeaderEl = el.querySelector(&#39;.el-dialog__header&#39;);
+        const dragDom = el.querySelector(&#39;.el-dialog&#39;);
+        dialogHeaderEl.style.cursor = &#39;move&#39;;
+
+        // 获取原有属性 ie dom元素.currentStyle 火狐谷歌 window.getComputedStyle(dom元素, null);
+        const sty = dragDom.currentStyle || window.getComputedStyle(dragDom, null);
+        dialogHeaderEl.onmousedown = (e) =&gt; {
+            // 鼠标按下，计算当前元素距离可视区的距离
+            const disX = e.clientX - dialogHeaderEl.offsetLeft;
+            const disY = e.clientY - dialogHeaderEl.offsetTop;
+
+            // 获取到的值带px 正则匹配替换
+            let styL, styT
+
+            // 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
+            if (sty.left.includes(&#39;%&#39;)) {
+              styL = +document.body.clientWidth * (+sty.left.replace(/\%/g, &#39;&#39;) / 100);
+              styT = +document.body.clientHeight * (+sty.top.replace(/\%/g, &#39;&#39;) / 100);
+            } else {
+              styL = +sty.left.replace(/\px/g, &#39;&#39;);
+              styT = +sty.top.replace(/\px/g, &#39;&#39;);
+            }
+
+            document.onmousemove = function(e) {
+              // 通过事件委托，计算移动的距离
+              const l = e.clientX - disX;
+              const t = e.clientY - disY;
+              // 移动当前元素
+              dragDom.style.left = `${l + styL}px`;
+              dragDom.style.top = `${t + styT}px`;
+              // 将此时的位置传出去
+              // binding.value({x:e.pageX,y:e.pageY});
+            }
+
+            document.onmouseup = function(e) {
+              document.onmousemove = null
+              document.onmouseup = null
+            }
+        }
+    }
+})
+
+// v-dialogDragWidth: 弹窗宽度拖大 拖小
+Vue.directive(&#39;dialogDragWidth&#39;, {
+    bind(el, binding, vnode, oldVnode) {
+        const dragDom = binding.value.$el.querySelector(&#39;.el-dialog&#39;);
+        el.onmousedown = (e) =&gt; {
+            // 鼠标按下，计算当前元素距离可视区的距离
+            const disX = e.clientX - el.offsetLeft;
+
+            document.onmousemove = function(e) {
+              e.preventDefault() // 移动时禁用默认事件
+              // 通过事件委托，计算移动的距离
+              const l = e.clientX - disX;
+              dragDom.style.width = `${l}px`;
+            }
+            document.onmouseup = function(e) {
+              document.onmousemove = null;
+              document.onmouseup = null;
+            }
+        }
+    }
+})</code></pre><h1 id="The-Three-vue-路由跳转-2020-3-27-14-46"><a href="#The-Three-vue-路由跳转-2020-3-27-14-46" class="headerlink" title="The Three  vue 路由跳转  [2020/3/27 14:46]"></a>The Three  <strong><em>vue 路由跳转</em></strong>  [2020/3/27 14:46]</h1><h1 id="Way-2"><a href="#Way-2" class="headerlink" title="Way"></a>Way</h1><pre><code>1.带参数：  this.$router.push({ path: &#39;/PurchaseOrder?idSerialnumber=&#39; + row.k3OrderNum });
+         或 this.$router.push({ path: &#39;/PurchaseOrder&#39;, query: {idSerialnumber:row.k3OrderNum} });
+
+2.刷新页面： this.$store.commit(&quot;reloadTagPage&quot;, [{ name: &quot;PurchaseOrder&quot; }, this ]);
+            main.js文件中引入方法：
+                reloadTagPage(state, data) { //重新打开页面
+                    let tagsList = [];
+                    let item = null;
+                    state.tagsList.forEach((element, i) =&gt; {
+                        if (element.name != data[0].name) {
+                            tagsList.push(element);
+                        } else {
+                            item = element;
+                        }
+                    });
+                    if (item != null) {
+                        state.tagsList = tagsList;
+                        bus.$emit(&#39;tags&#39;, state.tagsList);
+                        setTimeout(() =&gt; {
+                            data[1].$router.push({ path: data[0].name });
+                        }, 100);
+                    } else {
+                        data[1].$router.push({ path: data[0].name });
+                    }
+                },</code></pre><h1 id="The-Four-前端做分页"><a href="#The-Four-前端做分页" class="headerlink" title="The Four  前端做分页"></a>The Four  前端做分页</h1><h1 id="Way-在el-input上做展示框的分页"><a href="#Way-在el-input上做展示框的分页" class="headerlink" title="Way   [在el-input上做展示框的分页]"></a>Way   [在el-input上做展示框的分页]</h1><pre><code>//template模板上：
+&lt;el-dialog
+    title=&quot;提示: 是否需要合并栈板&quot;
+    :visible.sync=&quot;dialogFormVisible&quot;
+    width=&quot;36%&quot;
+    :close-on-click-modal=&quot;false&quot;
+    :close-on-press-escape=&quot;false&quot;
+    :show-close=&quot;false&quot;
+    class=&quot;eldialog&quot;&gt;
+    &lt;el-form :model=&quot;soInput&quot;&gt;
+        &lt;el-form-item label=&quot;合并的so: &quot; :label-width=&quot;formLabelWidth&quot;&gt;
+          &lt;el-input
+            v-model=&quot;soInput.selectValue&quot;
+            @input=&quot;onInputSo(1,5)&quot;
+            type=&quot;text&quot;
+            class=&quot;elInput&quot;
+          &gt;&lt;/el-input&gt;
+        &lt;/el-form-item&gt;
+    &lt;/el-form&gt;
+    &lt;ul v-if=&quot;soInput.show&quot; class=&quot;dialogUl&quot;&gt;
+      &lt;li
+        v-for=&quot;(item,index) in listData&quot;
+        :key=&quot;index&quot;
+        class=&quot;dialogLi&quot;
+        @click=&quot;soListClick&quot;
+      &gt;{{item.so}}&lt;/li&gt;
+      &lt;div class=&quot;footStyle&quot; v-if=&quot;soInput.show&quot;&gt;
+        &lt;div @click=&quot;soLeftClick&quot; style=&quot;cursor:pointer;&quot;&gt;＜&lt;/div&gt;
+        &lt;div&gt;{{soInput.recentPage}}&lt;/div&gt;
+        &lt;div @click=&quot;soRightClick&quot; style=&quot;cursor:pointer;&quot;&gt;＞&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/ul&gt;
+    &lt;div slot=&quot;footer&quot; class=&quot;dialog-footer&quot;&gt;
+        &lt;el-button @click=&quot;soCancel&quot;&gt;取 消&lt;/el-button&gt;
+        &lt;el-button type=&quot;primary&quot; @click=&quot;newMergerPallet&quot;&gt;确 定&lt;/el-button&gt;
+    &lt;/div&gt;
+&lt;/el-dialog&gt;
+
+//methods:
+onInputSo(page, size) {
+  if (this.soInput.selectValue !== &quot;&quot;) {
+    this.soInput.show = true;
+    let newSelect = [],
+      selectDatas = this.soSelect;
+    for (let j = 0; j &lt; selectDatas.length; j++) {
+      if (selectDatas[j].so.indexOf(this.soInput.selectValue) !== -1) {
+        newSelect.push(selectDatas[j]);
+      }
+    }
+    if (this.soSelect.length === 0) {
+      for (let j = 0; j &lt; this.oldSelect.length; j++) {
+        if (this.oldSelect[j].so.indexOf(this.soInput.selectValue) !== -1) {
+          newSelect.push(this.oldSelect[j]);
+        }
+      }
+    }
+    // if(newSelect.length == 0){
+    //   this.soSelect = []
+    // }else{
+    //   this.soSelect = newSelect
+    // }
+    this.listData = [];
+    if (newSelect.length == 0) {
+      this.listData = [];
+    } else {
+      this.langth = Math.ceil(newSelect.length / size);
+      for (var i = (page - 1) * size; i &lt;= page * size - 1; i++) {
+        if (i &gt; newSelect.length - 1) {
+          break;
+        }
+        this.listData.push(newSelect[i]);
+      }
+    }
+  } else {
+    this.soInput.show = false;
+    this.soSelect = this.oldSelect;
+  }
+},
+soLeftClick() {
+  if (this.soInput.recentPage &gt; 1) {
+    this.soInput.recentPage--;
+    this.onInputSo(this.soInput.recentPage, this.soInput.recordCount);
+  }
+},
+soRightClick() {
+  if (this.soInput.recentPage &lt; this.langth) {
+    this.soInput.recentPage++;
+    this.onInputSo(this.soInput.recentPage, this.soInput.recordCount);
+  }
+},</code></pre><h1 id="Way-直接对表格做分页"><a href="#Way-直接对表格做分页" class="headerlink" title="Way   [直接对表格做分页]"></a>Way   [直接对表格做分页]</h1><pre><code>loadTable() {
+    let recentPage = this.recentPage;
+    let recordCount = this.recordCount;
+    this.tableData = this.allData.slice((recentPage-1)*recordCount, recentPage*recordCount);
+}</code></pre>
         </div>
         <!-- .entry-content -->
         <div class="single-reward">
@@ -465,7 +653,7 @@ search() {
           
             <div class="post-nepre full previous">
           
-            <a href="/2020/03/10/Diary002/" rel="prev">
+            <a href="/2020/03/14/Diary002/" rel="prev">
               <div class="background">
                 <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat2.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/cat2.jpg.webp">
               </div>
@@ -473,7 +661,7 @@ search() {
               Previous Post</span>
               <div class="info">
                 <h3>
-                Diary</h3>
+                奇怪的知识增加了（二）</h3>
                 <hr>
               </div>
             </a>

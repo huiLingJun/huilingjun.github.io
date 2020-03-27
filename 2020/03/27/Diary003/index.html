@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Diary | huilingjun</title>
+  <title itemprop="name">奇怪的知识增加了（三） | huilingjun</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -389,11 +389,11 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(/images/cover/cat2.jpg.webp);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat2.jpg.webp">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(/images/cover/dog4.jpg.webp);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/dog4.jpg.webp">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      Diary</h1>
+      奇怪的知识增加了（三）</h1>
       <p class="entry-census">
         <span>
           <a href="huilingjun.github.io">
@@ -405,7 +405,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-3-10<span class="bull">
+        2020-3-27<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
@@ -419,80 +419,8 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <p>今日记录一下网上学习到的关于elemetUI的dialog弹窗拖拽的方法</p>
-<p><img src="/images/cover/(10).jpg.webp" alt=""></p>
-<h1 id="The-One"><a href="#The-One" class="headerlink" title="The One"></a>The One</h1><pre><code>Vue+elemet ui 项目中el-dialog对话框拖拽的方法</code></pre><h1 id="Way"><a href="#Way" class="headerlink" title="Way:"></a>Way:</h1><pre><code>//页面中在el-dialog的地方加入v-dialogDrag
-&lt;el-dialog title=&quot;收货地址&quot; :visible.sync=&quot;dialogTableVisible&quot; :modal=&#39;false&#39; v-dialogDrag &gt;
-...
-&lt;/el-dialog&gt;
+          <p><img src="/images/cover/(10).jpg.webp" alt=""></p>
 
-//在main.js文件中引入
-// v-dialogDrag: 弹窗拖拽
-Vue.directive(&#39;dialogDrag&#39;, {
-    bind(el, binding, vnode, oldVnode) {
-        const dialogHeaderEl = el.querySelector(&#39;.el-dialog__header&#39;);
-        const dragDom = el.querySelector(&#39;.el-dialog&#39;);
-        dialogHeaderEl.style.cursor = &#39;move&#39;;
-
-        // 获取原有属性 ie dom元素.currentStyle 火狐谷歌 window.getComputedStyle(dom元素, null);
-        const sty = dragDom.currentStyle || window.getComputedStyle(dragDom, null);
-        dialogHeaderEl.onmousedown = (e) =&gt; {
-            // 鼠标按下，计算当前元素距离可视区的距离
-            const disX = e.clientX - dialogHeaderEl.offsetLeft;
-            const disY = e.clientY - dialogHeaderEl.offsetTop;
-
-            // 获取到的值带px 正则匹配替换
-            let styL, styT
-
-            // 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
-            if (sty.left.includes(&#39;%&#39;)) {
-              styL = +document.body.clientWidth * (+sty.left.replace(/\%/g, &#39;&#39;) / 100);
-              styT = +document.body.clientHeight * (+sty.top.replace(/\%/g, &#39;&#39;) / 100);
-            } else {
-              styL = +sty.left.replace(/\px/g, &#39;&#39;);
-              styT = +sty.top.replace(/\px/g, &#39;&#39;);
-            }
-
-            document.onmousemove = function(e) {
-              // 通过事件委托，计算移动的距离
-              const l = e.clientX - disX;
-              const t = e.clientY - disY;
-              // 移动当前元素
-              dragDom.style.left = `${l + styL}px`;
-              dragDom.style.top = `${t + styT}px`;
-              // 将此时的位置传出去
-              // binding.value({x:e.pageX,y:e.pageY});
-            }
-
-            document.onmouseup = function(e) {
-              document.onmousemove = null
-              document.onmouseup = null
-            }
-        }
-    }
-})
-
-// v-dialogDragWidth: 弹窗宽度拖大 拖小
-Vue.directive(&#39;dialogDragWidth&#39;, {
-    bind(el, binding, vnode, oldVnode) {
-        const dragDom = binding.value.$el.querySelector(&#39;.el-dialog&#39;);
-        el.onmousedown = (e) =&gt; {
-            // 鼠标按下，计算当前元素距离可视区的距离
-            const disX = e.clientX - el.offsetLeft;
-
-            document.onmousemove = function(e) {
-              e.preventDefault() // 移动时禁用默认事件
-              // 通过事件委托，计算移动的距离
-              const l = e.clientX - disX;
-              dragDom.style.width = `${l}px`;
-            }
-            document.onmouseup = function(e) {
-              document.onmousemove = null;
-              document.onmouseup = null;
-            }
-        }
-    }
-})</code></pre>
         </div>
         <!-- .entry-content -->
         <div class="single-reward">
@@ -520,36 +448,19 @@ Vue.directive(&#39;dialogDragWidth&#39;, {
       <div class="toc" style="background: none;"></div>
       <section class="post-squares nextprev">
         
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/2020/03/14/Diary003/" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/dog4.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/dog4.jpg.webp">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                Diary</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
         
           
-            <div class="post-nepre half next">
+            <div class="post-nepre full next">
           
-            <a href="/2020/03/06/Diary001/" rel="next">
+            <a href="/2020/03/14/Diary002/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat1.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/cat1.jpg.webp">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat2.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/cat2.jpg.webp">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                Diary</h3>
+                奇怪的知识增加了（二）</h3>
                 <hr>
               </div>
             </a>

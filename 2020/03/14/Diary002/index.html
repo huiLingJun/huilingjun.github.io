@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Diary | huilingjun</title>
+  <title itemprop="name">奇怪的知识增加了（二） | huilingjun</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -389,11 +389,11 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(/images/cover/dog4.jpg.webp);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/dog4.jpg.webp">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(/images/cover/cat2.jpg.webp);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat2.jpg.webp">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      Diary</h1>
+      奇怪的知识增加了（二）</h1>
       <p class="entry-census">
         <span>
           <a href="huilingjun.github.io">
@@ -419,9 +419,9 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <p><img src="/images/cover/(10).jpg.webp" alt=""></p>
-<h1 id="The-One"><a href="#The-One" class="headerlink" title="The One"></a>The One</h1><pre><code>******VUE骚操作之this.$options.data()【大概一分钟】******
-    重置vue组件的data数据
+          <p>今日记录一下网上学习到的关于elemetUI的dialog弹窗拖拽的方法</p>
+<p><img src="/images/cover/(10).jpg.webp" alt=""></p>
+<h1 id="The-One-VUE骚操作之this-options-data-【大概一分钟】"><a href="#The-One-VUE骚操作之this-options-data-【大概一分钟】" class="headerlink" title="The One  VUE骚操作之this.$options.data()【大概一分钟】"></a>The One  <strong><em>VUE骚操作之this.$options.data()【大概一分钟】</em></strong></h1><pre><code>    重置vue组件的data数据
 在vue单文件组件里有时需要重置data中的数据，比如表单填写一半，用户想重新填写。</code></pre><h2 id="Way"><a href="#Way" class="headerlink" title="Way:"></a>Way:</h2><pre><code>//重置表单方法
 this.form = this.$options.data().form;
 也可以通过给组件 $data 对象赋值来重置来重置整个 $data。
@@ -429,7 +429,7 @@ this.$data = this.$options.data();
 
 结语：
 vue组件可以通过 this.$options 对象获取你编写的任何方法，比如 created( ) 生命周期函数，发现vue新玩法，偷笑.jpg</code></pre><hr>
-<h1 id="The-Two"><a href="#The-Two" class="headerlink" title="The Two"></a>The Two</h1><pre><code>******vue+elemetUI的el-table点击分页时保存勾选框******</code></pre><h2 id="Way-1"><a href="#Way-1" class="headerlink" title="Way:"></a>Way:</h2><pre><code>let allTableData = this.setOtherData.tableData;
+<h1 id="The-Two-vue-elemetUI的el-table点击分页时保存勾选框"><a href="#The-Two-vue-elemetUI的el-table点击分页时保存勾选框" class="headerlink" title="The Two  vue+elemetUI的el-table点击分页时保存勾选框"></a>The Two  <strong><em>vue+elemetUI的el-table点击分页时保存勾选框</em></strong></h1><h2 id="Way-1"><a href="#Way-1" class="headerlink" title="Way:"></a>Way:</h2><pre><code>let allTableData = this.setOtherData.tableData;
 let start = (this.recentPage - 1) * this.recordCount;
 let end = this.recentPage * this.recordCount - 1;
 this.tableData = [];
@@ -440,7 +440,7 @@ for (var i = start; i &lt;= end; i++) {
   this.tableData.push(allTableData[i]);
 }
 // this.$refs.multipleTable.clearSelection();   “去掉”表格的清除勾选方法</code></pre><hr>
-<h1 id="The-Three"><a href="#The-Three" class="headerlink" title="The Three"></a>The Three</h1><pre><code>******vue自动刷新的几种方法******</code></pre><h2 id="Way-2"><a href="#Way-2" class="headerlink" title="Way:"></a>Way:</h2><pre><code>1、window.location.reload(),是原生JS提供的方法，this.$router.go(0):是vue路由里面的一种方法，这两种方法都可以达到页面刷新的目的，简单粗暴，但是用户体验不好，相当于按F5刷新页面，会有短暂的白屏，相当于页面的重新载入。
+<h1 id="The-Three-vue自动刷新的几种方法"><a href="#The-Three-vue自动刷新的几种方法" class="headerlink" title="The Three  vue自动刷新的几种方法"></a>The Three  <strong><em>vue自动刷新的几种方法</em></strong></h1><h2 id="Way-2"><a href="#Way-2" class="headerlink" title="Way:"></a>Way:</h2><pre><code>1、window.location.reload(),是原生JS提供的方法，this.$router.go(0):是vue路由里面的一种方法，这两种方法都可以达到页面刷新的目的，简单粗暴，但是用户体验不好，相当于按F5刷新页面，会有短暂的白屏，相当于页面的重新载入。
 2、通过路由跳转的方法刷新，具体思路是点击按钮跳转一个空白页，然后再马上跳回来：
         当前页面：
             &lt;el-button type=&quot;primary&quot; class=&quot;btn&quot; @click=&quot;btnaction&quot;&gt;摁我刷新页面&lt;/el-button&gt;
@@ -495,7 +495,79 @@ for (var i = start; i &lt;= end; i++) {
     当前组件：
         inject: [&#39;reload&#39;], // 引入方法
         this.reload()   //调用方法</code></pre><hr>
-
+<h1 id="The-Four-在表格里实现父菜单和子菜单的上下移-2020-3-37-15-50"><a href="#The-Four-在表格里实现父菜单和子菜单的上下移-2020-3-37-15-50" class="headerlink" title="The Four  在表格里实现父菜单和子菜单的上下移  [2020/3/37 15:50]"></a>The Four  在表格里实现父菜单和子菜单的上下移  [2020/3/37 15:50]</h1><h1 id="Way-3"><a href="#Way-3" class="headerlink" title="Way"></a>Way</h1><pre><code>首先，在表格插入@row-click这个方法：
+  &lt;el-table
+    v-loading=&quot;listLoading&quot;
+    :data=&quot;tableData&quot;
+    element-loading-text=&quot;Loading&quot;
+    border
+    fit
+    highlight-current-row
+    row-key=&quot;id&quot;
+    :tree-props=&quot;{ children: &#39;children&#39;, hasChildren: &#39;hasChildren&#39; }&quot;
+    @row-click=&quot;getRowData&quot;
+  &gt;
+然后拿到当前行的内容信息：
+  getRowData(row) {
+    this.rowInfo = row;
+  },
+上移方法：
+  moveUp() {
+    for (let i = 0; i &lt; this.tableData.length; i++) {
+      if (this.rowInfo.id == this.tableData[i].id) {
+        if (i == 0) {
+          // alert(&quot;已经是第一条，不可上移&quot;);
+          return;
+        } else {
+          const selectData = this.tableData.splice(i, 1);
+          this.tableData.splice(i - 1, 0, selectData[0]);
+        }
+      }
+    }
+    for (let i = 0; i &lt; this.tableData.length; i++) {
+      for (let j = 0; j &lt; this.tableData[i].children.length; j++) {
+        if (this.rowInfo.id == this.tableData[i].children[j].id) {
+          if (j == 0) {
+            // alert(&quot;已经是第一条，不可上移&quot;);
+            return;
+          } else {
+            const selectData = this.tableData[i].children.splice(j, 1);
+            this.tableData[i].children.splice(j - 1, 0, selectData[0]);
+          }
+        }
+      }
+    }
+  },
+下移方法：
+  moveDown() {
+    // 如果id 相等 那么 就拿到对应的下标
+    for (let i = 0; i &lt; this.tableData.length; i++) {
+      if (this.rowInfo.id == this.tableData[i].id) {
+        if (i == this.tableData.length - 1) {
+          // alert(&quot;已经是最后一条，不可下移&quot;);
+          return;
+        } else {
+          const selectData = this.tableData.splice(i, 1);
+          this.tableData.splice(i + 1, 0, selectData[0]);
+          return;
+        }
+      }
+    }
+    for (let i = 0; i &lt; this.tableData.length; i++) {
+      for (let j = 0; j &lt; this.tableData[i].children.length; j++) {
+        if (this.rowInfo.id == this.tableData[i].children[j].id) {
+          if (j == this.tableData[i].children.length - 1) {
+            // alert(&quot;已经是最后一条，不可下移&quot;);
+            return;
+          } else {
+            const selectData = this.tableData[i].children.splice(j, 1);
+            this.tableData[i].children.splice(j + 1, 0, selectData[0]);
+            return;
+          }
+        }
+      }
+    }
+  },</code></pre>
         </div>
         <!-- .entry-content -->
         <div class="single-reward">
@@ -523,19 +595,36 @@ for (var i = start; i &lt;= end; i++) {
       <div class="toc" style="background: none;"></div>
       <section class="post-squares nextprev">
         
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2020/03/27/Diary003/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/dog4.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/dog4.jpg.webp">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                奇怪的知识增加了（三）</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
         
           
-            <div class="post-nepre full next">
+            <div class="post-nepre half next">
           
-            <a href="/2020/03/10/Diary002/" rel="next">
+            <a href="/2020/03/06/Diary001/" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat2.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/cat2.jpg.webp">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat1.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/cat1.jpg.webp">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                Diary</h3>
+                奇怪的知识增加了（一）</h3>
                 <hr>
               </div>
             </a>
