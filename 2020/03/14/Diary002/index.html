@@ -567,7 +567,18 @@ for (var i = start; i &lt;= end; i++) {
         }
       }
     }
-  },</code></pre>
+  },</code></pre><p>#The Five   引入图片路径: (模块引入、标签引入、css引入的区别) （待完善）<br>    <img :src="require('@/assets/image/antiset.png')" alt="">   //标签内引入</p>
+<pre><code>模块引入：
+  1，引入：import any from &#39;./......路径&#39;;（any是自定义的一个名称，可以当做变量直接使用）
+     导出：export  default  “你好”；
+  2，引入：import { time as abc } from &#39;./......路径&#39;;（必须加大括号引起来！as可以将导入的模块名称起别名）
+     导出：export const time=&quot;十二点&quot;；
+
+  如果需要动态引入，可以使用import(&#39;./路径&#39;);为promise对象，引入成功直接.then(res=&gt;{
+  });(注意在res中可以使用引入的文件！) 
+  import(&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;).then(res=&gt;
+      $(&quot;body&quot;).css({background:&quot;blue&quot;})
+  );</code></pre>
         </div>
         <!-- .entry-content -->
         <div class="single-reward">
@@ -598,7 +609,7 @@ for (var i = start; i &lt;= end; i++) {
           
             <div class="post-nepre half previous">
           
-            <a href="/2020/03/27/Diary003/" rel="prev">
+            <a href="/2020/04/22/Diary003/" rel="prev">
               <div class="background">
                 <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/dog4.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/dog4.jpg.webp">
               </div>

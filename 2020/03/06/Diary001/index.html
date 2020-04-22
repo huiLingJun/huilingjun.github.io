@@ -505,31 +505,57 @@ Vue.directive(&#39;dialogDragWidth&#39;, {
             }
         }
     }
-})</code></pre><h1 id="The-Three-vue-路由跳转-2020-3-27-14-46"><a href="#The-Three-vue-路由跳转-2020-3-27-14-46" class="headerlink" title="The Three  vue 路由跳转  [2020/3/27 14:46]"></a>The Three  <strong><em>vue 路由跳转</em></strong>  [2020/3/27 14:46]</h1><h1 id="Way-2"><a href="#Way-2" class="headerlink" title="Way"></a>Way</h1><pre><code>1.带参数：  this.$router.push({ path: &#39;/PurchaseOrder?idSerialnumber=&#39; + row.k3OrderNum });
-         或 this.$router.push({ path: &#39;/PurchaseOrder&#39;, query: {idSerialnumber:row.k3OrderNum} });
+})</code></pre><h1 id="The-Three-vue-路由跳转-2020-3-27-14-46"><a href="#The-Three-vue-路由跳转-2020-3-27-14-46" class="headerlink" title="The Three  vue 路由跳转  [2020/3/27 14:46]"></a>The Three  <strong><em>vue 路由跳转</em></strong>  [2020/3/27 14:46]</h1><h1 id="Way-2"><a href="#Way-2" class="headerlink" title="Way"></a>Way</h1><h2 id="1-带参数："><a href="#1-带参数：" class="headerlink" title="1.带参数："></a>1.带参数：</h2><pre><code>    this.$router.push({ path: &#39;/PurchaseOrder?idSerialnumber=&#39; + row.k3OrderNum });
+     或 this.$router.push({ path: &#39;/PurchaseOrder&#39;, query: {idSerialnumber:row.k3OrderNum} });</code></pre><h2 id="2-刷新页面："><a href="#2-刷新页面：" class="headerlink" title="2.刷新页面："></a>2.刷新页面：</h2><pre><code>    this.$store.commit(&quot;reloadTagPage&quot;, [{ name: &quot;PurchaseOrder&quot; }, this ]);
+    main.js文件中引入方法：
+      reloadTagPage(state, data) { //重新打开页面
+          let tagsList = [];
+          let item = null;
+          state.tagsList.forEach((element, i) =&gt; {
+              if (element.name != data[0].name) {
+                  tagsList.push(element);
+              } else {
+                  item = element;
+              }
+          });
+          if (item != null) {
+              state.tagsList = tagsList;
+              bus.$emit(&#39;tags&#39;, state.tagsList);
+              setTimeout(() =&gt; {
+                  data[1].$router.push({ path: data[0].name });
+              }, 100);
+          } else {
+              data[1].$router.push({ path: data[0].name });
+          }
+      },</code></pre><h2 id="3-从-“A”-页面-跳转到-“B”-页面："><a href="#3-从-“A”-页面-跳转到-“B”-页面：" class="headerlink" title="3.从 “A” 页面 跳转到 “B” 页面："></a>3.从 “A” 页面 跳转到 “B” 页面：</h2><pre><code>    &quot;A&quot;页面：
+        activated () {
+          store.state.selectRow = &#39;&#39;
+        },
+          //created() {
+          //  this.loadData(1, 10);
+          //},
 
-2.刷新页面： this.$store.commit(&quot;reloadTagPage&quot;, [{ name: &quot;PurchaseOrder&quot; }, this ]);
-            main.js文件中引入方法：
-                reloadTagPage(state, data) { //重新打开页面
-                    let tagsList = [];
-                    let item = null;
-                    state.tagsList.forEach((element, i) =&gt; {
-                        if (element.name != data[0].name) {
-                            tagsList.push(element);
-                        } else {
-                            item = element;
-                        }
-                    });
-                    if (item != null) {
-                        state.tagsList = tagsList;
-                        bus.$emit(&#39;tags&#39;, state.tagsList);
-                        setTimeout(() =&gt; {
-                            data[1].$router.push({ path: data[0].name });
-                        }, 100);
-                    } else {
-                        data[1].$router.push({ path: data[0].name });
-                    }
-                },</code></pre><h1 id="The-Four-前端做分页"><a href="#The-Four-前端做分页" class="headerlink" title="The Four  前端做分页"></a>The Four  前端做分页</h1><h1 id="Way-在el-input上做展示框的分页"><a href="#Way-在el-input上做展示框的分页" class="headerlink" title="Way   [在el-input上做展示框的分页]"></a>Way   [在el-input上做展示框的分页]</h1><pre><code>//template模板上：
+        CheckTheDetails(row) {
+          store.state.selectRow = row.k3OrderNum
+          this.$router.push({ path: &#39;/PurchaseOrder&#39;});
+        },
+
+    &quot;B&quot;页面：
+        deactivated(){
+            store.state.selectRow = &#39;&#39;
+        },
+          //created() {
+          //  this.loadData(1, 10);
+          //},
+        activated () {
+            this.loadData(1, 10);
+        },
+
+        loadData(page, count) {
+          let data = {};
+          data.idSerialnumber = store.state.selectRow;
+          axios({......data:data})......
+        }</code></pre><h1 id="The-Four-前端做分页"><a href="#The-Four-前端做分页" class="headerlink" title="The Four  前端做分页"></a>The Four  前端做分页</h1><h1 id="Way-在el-input上做展示框的分页"><a href="#Way-在el-input上做展示框的分页" class="headerlink" title="Way   [在el-input上做展示框的分页]"></a>Way   [在el-input上做展示框的分页]</h1><pre><code>//template模板上：
 &lt;el-dialog
     title=&quot;提示: 是否需要合并栈板&quot;
     :visible.sync=&quot;dialogFormVisible&quot;

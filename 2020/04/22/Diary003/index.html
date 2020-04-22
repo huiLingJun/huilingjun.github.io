@@ -405,7 +405,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-3-27<span class="bull">
+        2020-4-22<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
@@ -420,7 +420,483 @@
         
         <div class="entry-content">
           <p><img src="/images/cover/(10).jpg.webp" alt=""></p>
+<h1 id="The-One-略不一样的样式（一）"><a href="#The-One-略不一样的样式（一）" class="headerlink" title="The One   略不一样的样式（一）"></a>The One   略不一样的样式（一）</h1><pre><code>.checkTitle { 
+    width: calc(100% - 30px);     //css: 自适应宽度. //calc() 函数用于动态计算长度值, 注意：运算符前后都需要保留一个空格.
+    padding: 15px;
+    border: 1px solid #c7d5f534;
+    background-color: #c7d5f534;
+}
+.elcheck {             //flex布局：多个div一行显示
+    display: flex;    
+    flex-flow: wrap;        //子元素溢出自动换行
+    width: 100%;
+}
+.chart {            //子div
+    box-sizing: border-box;
+    border: 1px solid #ebeef5;
+    width: 20%;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 !important;
+    padding-left: 10px;
+    border-radius: 4px;
+}</code></pre><h1 id="The-Two-三级多选框-的-两种实现方式"><a href="#The-Two-三级多选框-的-两种实现方式" class="headerlink" title="The Two    三级多选框 的 两种实现方式"></a>The Two    三级多选框 的 两种实现方式</h1><h2 id="Way1–遍历子选框"><a href="#Way1–遍历子选框" class="headerlink" title="Way1–遍历子选框"></a>Way1–遍历子选框</h2><pre><code>一、遍历子选框
+    &lt;div v-for=&quot;(item, index) in contentList&quot; :key=&quot;index&quot; class=&quot;box-card&quot;&gt;
+        &lt;el-checkbox
+          :indeterminate=&quot;item.isIndeterminate&quot;
+          v-model=&quot;item.checkAll&quot;
+          @change=&quot;handleCheckChange($event, item)&quot;
+          class=&quot;checkTitle&quot;
+        &gt;{{item.name}}&lt;/el-checkbox&gt;
+        &lt;div style=&quot;margin: 15px 0;&quot;&gt;&lt;/div&gt;
+        &lt;el-checkbox-group v-model=&quot;item.checkedItems&quot; @change=&quot;handleCheckedItemsChange($event, item)&quot;&gt;
+            &lt;el-checkbox
+              v-for=&quot;(citem, cindex) in item.functionList&quot;
+              :key=&quot;cindex&quot;
+              :label=&quot;citem&quot;
+              class=&quot;chart&quot;
+            &gt;{{citem.name}}&lt;/el-checkbox&gt;
+        &lt;/el-checkbox-group&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;foot&quot;&gt;
+        &lt;el-checkbox
+          :indeterminate=&quot;indeterminate&quot;
+          v-model=&quot;ischeckAll&quot;
+          @change=&quot;handleCheckAllChange&quot;
+        &gt;{{fn["选择全部"][value]}}&lt;/el-checkbox&gt;
+    &lt;/div&gt;
 
+    methods: {
+        getData() {
+          this.$api.memberPower(this.$store.state.userId)
+            .then(res =&gt; {
+              if (res.data.code == 200) {
+                let resData = res.data.result;
+                resData.forEach(item =&gt; { item.checkAll = false; item.isIndeterminate = false; item.checkedItems = [];
+                  item.functionList.forEach(ele =&gt; { 
+                    this.checkAllListIds.push(ele.id)
+                    if(ele.resourceType == 1) {     //默认选中
+                      item.checkedItems.push(ele)
+                    }
+                  })
+                  this.contentList.push(item)
+                })
+              } else {
+                this.$message({ message: res.data.message, type: &quot;error&quot; })
+              }
+            })
+            .catch(err =&gt; {
+              console.error(err);
+            });
+        },
+        handleCheckChange(value, item) {
+          item.checkedItems = value ? item.functionList : [];
+          item.isIndeterminate = false;
+        },
+        handleCheckedItemsChange(value, item) {
+          let checkedCount = value.length;
+          item.checkAll = checkedCount === item.functionList.length;
+          item.isIndeterminate = checkedCount &gt; 0 &amp;&amp; checkedCount &lt; item.functionList.length;
+        },
+        handleCheckAllChange(e) {
+          this.ischeckAll = e;
+          this.indeterminate = false;
+          for(var i=0; i&lt;this.contentList.length; i++){ 
+            this.contentList[i].checkAll = e;
+            this.contentList[i].isIndeterminate = false; //去掉二级不确定状态
+            this.contentList[i].checkedItems = e ? this.contentList[i].functionList : [];
+          }
+        },
+    }</code></pre><h2 id="Way2–单独子选框"><a href="#Way2–单独子选框" class="headerlink" title="Way2–单独子选框"></a>Way2–单独子选框</h2><pre><code>二、单独子选框
+    &lt;div v-for=&quot;(item, index) in contentList&quot; :key=&quot;index&quot; class=&quot;box-card&quot;&gt;
+      &lt;el-checkbox
+        :indeterminate=&quot;item.isIndeterminate&quot;
+        v-model=&quot;item.checkAll&quot;
+        @change=&quot;handleCheckChange($event, item)&quot;
+        class=&quot;checkTitle&quot;
+      &gt;{{item.name}}&lt;/el-checkbox&gt;
+      &lt;div class=&quot;elcheck&quot;&gt;
+        &lt;div v-for=&quot;(citem, cindex) in item.functionList&quot; :key=&quot;cindex&quot; class=&quot;chart&quot;&gt;
+          &lt;el-checkbox 
+            v-model=&quot;citem.mychecked&quot;
+            @change=&quot;handleCheckedItemsChange(index)&quot;
+            :title=&quot;citem.name&quot;
+            :label=&quot;citem.id&quot;
+          &gt;{{citem.name}}&lt;/el-checkbox&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;foot&quot;&gt;
+      &lt;el-checkbox
+        :indeterminate=&quot;indeterminate&quot;
+        v-model=&quot;ischeckAll&quot;
+        @change=&quot;handleCheckAllChange&quot;
+      &gt;{{fn["选择全部"][value]}}&lt;/el-checkbox&gt;
+    &lt;/div&gt;
+    &lt;div style=&quot;text-align: center;&quot;&gt;
+      &lt;el-button type=&quot;success&quot; size=&quot;medium&quot; @click=&quot;handleKeep()&quot;&gt;{{fn["保存"][value]}}&lt;/el-button&gt;
+    &lt;/div&gt;
+
+    methods: {
+        getData() {
+          this.$api.departPower(this.$store.state.departId)
+            .then(res =&gt; {
+              if (res.data.code == 200) {
+                let resData = res.data.result;
+                resData.forEach(item =&gt; { item.checkAll = false; item.isIndeterminate = false; 
+                  item.functionList.forEach(ele =&gt; { 
+                    ele.mychecked = false;
+                    this.checkAllListIds.push(ele.id)
+                    if(ele.resourceType == 1) {
+                      ele.mychecked = true;
+                    }
+                  })
+                  this.contentList.push(item)
+                })
+              } else {
+                this.$message({ message: res.data.message, type: &quot;error&quot; })
+              }
+            })
+            .catch(err =&gt; {
+              console.error(err);
+              this.$message.error(err)
+            });
+        },
+        handleCheckChange(value, item) {
+          if(value == true) { 
+            item.checkAll = true; 
+            item.isIndeterminate = false;
+            item.functionList.forEach(ele =&gt; { ele.mychecked = true })
+          } else { 
+             item.checkAll = false; 
+             item.functionList.forEach(ele =&gt; { ele.mychecked = false })
+          }  
+        },
+        handleCheckedItemsChange(index) {
+          let funs = this.contentList[index].functionList;
+          var tickCount = 0, unTickCount = 0;
+          for(var i=0; i&lt;funs.length; i++) {
+            if (funs[i].mychecked == true) {
+              tickCount++;
+            }
+            if (funs[i].mychecked == false) {
+              unTickCount++;
+            }
+          }
+          if (tickCount == funs.length) {            
+            this.contentList[index].checkAll = true;
+            this.contentList[index].isIndeterminate = false;
+          } else {
+            this.contentList[index].checkAll = false;   
+            this.contentList[index].isIndeterminate = true;
+          }
+        },
+        handleCheckAllChange(e) {
+          this.ischeckAll = e;
+          this.indeterminate = false;
+          for(var i=0; i&lt;this.contentList.length; i++){ 
+            this.contentList[i].checkAll = e;
+            this.contentList[i].isIndeterminate = false; 
+            let funs = this.contentList[i].functionList;
+            for(var j=0; j&lt;funs.length; j++) { funs[j].mychecked = e }
+          }
+        },
+        handleKeep() {
+          let obj = {};
+          obj.id = this.$store.state.departId;
+          if(this.ischeckAll == true) {
+            obj.functionIds = this.checkAllListIds;
+          } else {
+            this.checkListIds = [];
+            this.contentList.forEach(item =&gt; {
+              item.functionList.forEach(citem =&gt; {
+                if(citem.mychecked == true) {
+                  this.checkListIds.push(citem.id)
+                }
+              })
+            })
+            obj.functionIds = this.checkListIds;
+          }
+          this.$api.departSubmit(obj).then(res =&gt; {
+            if(res.data.code == 200) {
+              this.$message.success(this.fn[&quot;保存成功&quot;][this.value])
+            } else {
+              this.$message.error(res.data.message)
+            }
+          }).catch(err =&gt; { console.error(err) })
+        }
+    } </code></pre><h1 id="The-Three-使用客户的语言包-后台返回数据-做-语言切换"><a href="#The-Three-使用客户的语言包-后台返回数据-做-语言切换" class="headerlink" title="The Three  使用客户的语言包(后台返回数据)做 语言切换"></a>The Three  使用客户的语言包(后台返回数据)做 语言切换</h1><h2 id="登录页："><a href="#登录页：" class="headerlink" title="登录页："></a>登录页：</h2><pre><code>首先，在登录时拿到后台返回的语言包数据：在登录页面操作：
+&lt;script&gt;
+    import store from &quot;../store/store&quot;;
+    if(localStorage[&quot;fn&quot;]) { var getFn = JSON.parse(localStorage[&quot;fn&quot;]); }     //***
+    export default {
+        name: &quot;login&quot;,
+        store,
+        data() {
+          return {
+            fn: getFn? getFn: {},   //***
+            value: localStorage[&quot;value&quot;],   //***
+            rules: {
+              user: [
+                {
+                  required: true,
+                  message: getFn? getFn[&quot;请输入账号&quot;][this.value] : &quot;请输入账号&quot;,
+                  trigger: &quot;blur&quot;
+                }
+              ],
+              password: [
+                {
+                  required: true,
+                  message: getFn? getFn[&quot;请输入密码&quot;][this.value] : &quot;请输入密码&quot;,
+                  trigger: &quot;blur&quot;
+                }
+              ]
+            }
+          };
+        },
+
+        beforeCreate() {    //***
+            if (typeof localStorage[&quot;value&quot;] == &quot;undefined&quot;) {
+              localStorage.setItem(&quot;value&quot;, &quot;chinese&quot;);
+            }
+            if (typeof localStorage[&quot;fn&quot;] == &quot;undefined&quot;) {
+              this.$api.getVersion().then(res =&gt; {
+                let version = res.data.result;
+                let obj = {};
+                obj.version = version;
+                this.$api.getLanguage(obj).then(res =&gt; {
+                  let resData = res.data.result;
+                  let fn = {};
+                  for (var i = 0; i &lt; resData.length; i++) {
+                    let name = resData[i].chinese;
+                    fn[name] = resData[i];
+                  }
+                  localStorage[&quot;fn&quot;] = JSON.stringify(fn);
+                  this.fn = JSON.parse(localStorage[&quot;fn&quot;])
+                });
+              });
+            }
+        },
+    }
+&lt;/script&gt;</code></pre><h2 id="语言设置页："><a href="#语言设置页：" class="headerlink" title="语言设置页："></a>语言设置页：</h2><pre><code>在语言设置页面：
+&lt;template&gt;
+    &lt;div class=&quot;language-box&quot;&gt;
+      &lt;span&gt;{{fn["系统语言"][value]}}: &lt;/span&gt;
+      &lt;el-select v-model=&quot;language&quot; :placeholder=&#39;fn[&quot;请选择&quot;][value]&#39;&gt;
+        &lt;el-option v-for=&quot;item in options&quot; :key=&quot;item.label&quot; :label=&quot;item.label&quot; :value=&quot;item.value&quot;&gt;&lt;/el-option&gt;
+      &lt;/el-select&gt;
+      &lt;div style=&quot; margin-top:50px ;&quot;&gt;
+        &lt;el-button type=&quot;success&quot; @click=&quot;submitForm()&quot;&gt;{{fn["提交"][value]}}&lt;/el-button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+    var getVersion = localStorage.getItem(&#39;version&#39;)      //***
+    var getFn = JSON.parse(localStorage[&#39;fn&#39;])      //***
+
+    export default {
+      inject: [&quot;reload&quot;],
+      data() {
+        return {
+          options: [
+            { value: &quot;chinese&quot; ,label:&#39;中文&#39;},
+            { value: &quot;english&quot; ,label:&#39;英文&#39;},
+            // { value: &quot;taiwen&quot; ,label:&#39;泰文&#39;},
+            { value: &quot;zawgyi&quot; ,label:&#39;缅文（zawgyi）&#39;},
+            { value: &quot;mm3&quot; ,label:&#39;缅文（mm3）&#39;},
+          ],
+          language: &quot;&quot;,
+          version: 1,
+          fn: getFn,        //***
+          value: localStorage[&#39;value&#39;],        //***
+        };
+      },
+      mounted() {
+        this.fetchVersion();
+      },
+      methods: {
+        fetchVersion() {
+          this.$api.getVersion().then(res =&gt; {
+            if (res.data.code == 200) {
+              this.version = res.data.result;
+              if(getVersion = null || this.version != getVersion) {
+                this.resetForm()
+              }
+              localStorage.setItem(&#39;version&#39;, this.version)
+            }
+          });
+        },
+        resetForm() {
+          let data = {};
+          data.version = this.version;
+          this.$api.getLanguage(data).then(res =&gt; {
+            let resData = res.data.result;
+            let fn = {};
+            for(var i=0; i&lt;resData.length; i++) {
+              let name = resData[i].chinese;
+              fn[name] = resData[i];
+            }
+            localStorage[&#39;fn&#39;] = JSON.stringify(fn)
+          });
+        },
+        submitForm() {
+          if(this.language == &quot;chinese&quot;) {
+            this.value = &quot;chinese&quot;;
+            localStorage.setItem(&#39;value&#39;, this.value)
+          } else if (this.language == &quot;english&quot;) {
+            this.value = &quot;english&quot;;
+            localStorage.setItem(&#39;value&#39;, this.value)
+          } else if (this.language == &quot;zawgyi&quot;) {
+            this.value = &quot;zawgyi&quot;;
+            localStorage.setItem(&#39;value&#39;, this.value)
+          } else if (this.language == &quot;mm3&quot;) {
+            this.value = &quot;mm3&quot;;
+            localStorage.setItem(&#39;value&#39;, this.value)
+          }
+          this.$router.go(0)
+        }
+      }
+    };
+&lt;/script&gt;</code></pre><h2 id="路由页："><a href="#路由页：" class="headerlink" title="路由页："></a>路由页：</h2><pre><code>由于路由和页面渲染是异步的，路由可能先跑，故也要稍作修改，在@router/index.js文件：
+if(localStorage[&#39;fn&#39;] &amp;&amp; localStorage[&#39;value&#39;]) {       //***
+    var getFn = JSON.parse(localStorage[&#39;fn&#39;]);
+    var getValue = localStorage[&#39;value&#39;];
+}
+
+const router = new Router({
+    routes: [{
+        path: &#39;/index&#39;,
+        name: &#39;index&#39;,
+        component: resolve =&gt; require([&#39;../components/index/index.vue&#39;], resolve),
+        meta: { title: getFn? getFn[&quot;首页&quot;][getValue] : &quot;首页&quot;, requireAuth: true },    //***
+        // meta: { title: &quot;首页&quot;, requireAuth: true },
+        children: [
+            //其他页面
+            {
+                path: &#39;/&#39;,
+                component: resolve =&gt; require([&#39;../components/index/page/welcome.vue&#39;], resolve),
+                meta: { title: getFn? getFn[&quot;欢迎页&quot;][getValue] : &quot;欢迎页&quot; }
+                // meta: { title: &quot;欢迎页&quot; }
+            },
+            ......
+        ]
+    }]
+}]</code></pre><h1 id="The-Four-element组件-el-upload踩坑"><a href="#The-Four-element组件-el-upload踩坑" class="headerlink" title="The Four  element组件 el-upload踩坑"></a>The Four  element组件 el-upload踩坑</h1><pre><code>一般情况下，el-upload上传组件的上传地址一般是放在action，但是由于action是指定一条路径写死的，有时候我们的需求是要请求接口上传，而action里面不能够做略复杂的请求，因而出现很多坑，其实也可以自己写一个上传方法，但是本宝宝懒得写，故使用如下手动上传的办法：
+&lt;el-form-item label=&quot;更新版本号&quot; prop=&quot;versionInt&quot; class=&quot;elUpload&quot;&gt;
+      &lt;el-input v-model=&quot;versionForm.versionInt&quot; disabled&gt;&lt;/el-input&gt;
+      &lt;el-upload
+        ref=&quot;upload&quot;
+        class=&quot;upload-demo&quot;
+        action=&quot;https://jsonplaceholder.typicode.com/posts/&quot;    //这里使用一个假地址欺骗一下这个组件，因为action是必填的，避免控制台一直报错比较难看
+        :headers=&quot;myheaders&quot;
+        :on-preview=&quot;handlePreview&quot;
+        :on-remove=&quot;handleRemove&quot;
+        :limit=&quot;1&quot;
+        :file-list=&quot;fileList&quot;
+        :auto-upload=&quot;false&quot;
+        :on-change=&quot;handleChange&quot;
+      &gt;
+        &lt;el-button size=&quot;small&quot; type=&quot;primary&quot; slot=&quot;trigger&quot;&gt;选取文件&lt;/el-button&gt;
+        &lt;el-button size=&quot;medium&quot; type=&quot;success&quot; style=&quot;margin-left:10px&quot; @click=&quot;submitUpload&quot;&gt;上传程序&lt;/el-button&gt;     //***使用手动上传方式
+         &lt;div slot=&quot;tip&quot; class=&quot;el-upload__tip&quot;&gt;* 文件不能超过10M&lt;/div&gt;
+      &lt;/el-upload&gt;
+&lt;/el-form-item&gt;
+
+data() {
+    return {
+        fileList: [],
+        myheaders: { &quot;fsd-token&quot;: sessionStorage.getItem(&quot;token&quot;) },
+        row: null,
+        appName: null,
+        fileName: null,
+        fdd: {}
+    }
+},
+
+methods: {
+    //上传状态改变的方法 (对应上面的:on-change)
+    handleChange(file,fileList) {
+      if (file.size &gt;= 10 * 1024 * 1024) {
+        this.$message.error(&quot;文件大小不能超过10M&quot;);
+        return false;
+      } else {
+        this.fdd = new FormData();
+        this.fdd.append(&quot;upLoadFile&quot;, file.raw); //传文件
+      }
+      this.fileList = fileList
+    },
+    submitUpload() {
+      this.$api.uploadApp(this.appName, this.fdd).then(res =&gt; {
+        if(res.data.code == 200) {
+          this.$message.success(&quot;上传成功!&quot;);
+          this.versionForm.versionInt = res.data.result.versionInt;
+          this.versionForm.versionStr = res.data.result.versionStr;
+          this.fileName = res.data.result.fileName;
+        } else {
+          this.$message.error(res.data.message);
+          this.$refs.upload.clearFiles();
+        }
+      });
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+
+    //上传完最后的保存方法可以这么写：
+    saveData() {
+        let data = new FormData();
+        if (this.fileList) {
+          data.append(&quot;fileName&quot;, this.fileName);
+        }
+        data.append(&quot;appName&quot;, this.appName);
+        if (this.versionForm.versionName) {
+          data.append(&quot;versionName&quot;, this.versionForm.versionName);
+        }
+        if (this.versionForm.Remark) {
+          data.append(&quot;updateMsg&quot;, this.versionForm.Remark);
+        }
+        if (this.fileList) {
+          data.append(&quot;upLoadFile&quot;, this.fileList[0].raw)
+        }
+        if (this.fileList &lt; 0 &amp;&amp; this.versionForm === null) {
+          this.$message.error(&quot;请输入数据&quot;)
+          return;
+        }
+        this.$api.updateApp(data)
+          .then(res =&gt; {
+            if (res.data.code == 200) {
+              this.$message.success(&quot;提交成功!&quot;);
+              this.dialogVersions = false;
+              this.versionForm = {};
+              this.getVersion();
+            } else {
+              this.$message.error(res.data.message)
+            }
+          })
+          .catch(function(err) { console.error(err) });
+    }
+}</code></pre><h1 id="The-Five-下载文件方法"><a href="#The-Five-下载文件方法" class="headerlink" title="The Five  下载文件方法"></a>The Five  下载文件方法</h1><pre><code>loadProgram(index, row) {
+  axios({
+    method: &quot;get&quot;,
+    url: &quot;appVersion/download?appName=&quot; + row.appName,
+    responseType: &quot;blob&quot;
+  }).then(res =&gt; {
+    let url = window.URL.createObjectURL(new Blob([res.data]));
+    let link = document.createElement(&quot;a&quot;);
+    link.style.display = &quot;none&quot;;
+    link.href = url;
+    link.setAttribute(&quot;download&quot;, row.appName+&quot;.apk&quot;);
+    document.body.appendChild(link);
+    link.click();
+    this.$message.success(&quot;下载成功!&quot;)
+  }).catch(err =&gt; {
+    console.error(err)
+    this.$message.error(err)
+  })
+},</code></pre>
         </div>
         <!-- .entry-content -->
         <div class="single-reward">
