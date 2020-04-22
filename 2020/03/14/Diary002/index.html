@@ -495,7 +495,7 @@ for (var i = start; i &lt;= end; i++) {
     当前组件：
         inject: [&#39;reload&#39;], // 引入方法
         this.reload()   //调用方法</code></pre><hr>
-<h1 id="The-Four-在表格里实现父菜单和子菜单的上下移-2020-3-37-15-50"><a href="#The-Four-在表格里实现父菜单和子菜单的上下移-2020-3-37-15-50" class="headerlink" title="The Four  在表格里实现父菜单和子菜单的上下移  [2020/3/37 15:50]"></a>The Four  在表格里实现父菜单和子菜单的上下移  [2020/3/37 15:50]</h1><h1 id="Way-3"><a href="#Way-3" class="headerlink" title="Way"></a>Way</h1><pre><code>首先，在表格插入@row-click这个方法：
+<h1 id="The-Four-在表格里实现父菜单和子菜单的上下移-2020-3-37-15-50"><a href="#The-Four-在表格里实现父菜单和子菜单的上下移-2020-3-37-15-50" class="headerlink" title="The Four  在表格里实现父菜单和子菜单的上下移  [2020/3/37 15:50]"></a>The Four  在表格里实现父菜单和子菜单的上下移  [2020/3/37 15:50]</h1><h2 id="Way-3"><a href="#Way-3" class="headerlink" title="Way"></a>Way</h2><pre><code>首先，在表格插入@row-click这个方法：
   &lt;el-table
     v-loading=&quot;listLoading&quot;
     :data=&quot;tableData&quot;
@@ -567,8 +567,10 @@ for (var i = start; i &lt;= end; i++) {
         }
       }
     }
-  },</code></pre><p>#The Five   引入图片路径: (模块引入、标签引入、css引入的区别) （待完善）<br>    <img :src="require('@/assets/image/antiset.png')" alt="">   //标签内引入</p>
-<pre><code>模块引入：
+  },</code></pre><p>#The Five   引入图片路径: (模块引入、标签引入、css引入的区别) （待完善）</p>
+<pre><code>&lt;img :src=&quot;require(&#39;@/assets/image/antiset.png&#39;)&quot; alt=&quot;&quot;&gt;   //标签内引入
+
+模块引入：
   1，引入：import any from &#39;./......路径&#39;;（any是自定义的一个名称，可以当做变量直接使用）
      导出：export  default  “你好”；
   2，引入：import { time as abc } from &#39;./......路径&#39;;（必须加大括号引起来！as可以将导入的模块名称起别名）
@@ -578,7 +580,9 @@ for (var i = start; i &lt;= end; i++) {
   });(注意在res中可以使用引入的文件！) 
   import(&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;).then(res=&gt;
       $(&quot;body&quot;).css({background:&quot;blue&quot;})
-  );</code></pre>
+  );
+
+  面试可能会问：import 和require commonjs和ES6的区别[旺柴]</code></pre>
         </div>
         <!-- .entry-content -->
         <div class="single-reward">

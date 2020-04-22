@@ -421,8 +421,8 @@
         <div class="entry-content">
           <p>今天解决了卡了几天的小bug，甚是开心，哈哈哈哈哈哈哈······好想发表情包^_^</p>
 <p><img src="/images/cover/(3).jpg.webp" alt=""></p>
-<h1 id="The-One-Vue-elemet-ui-项目中解决”分页查询”的小bug"><a href="#The-One-Vue-elemet-ui-项目中解决”分页查询”的小bug" class="headerlink" title="The One   Vue+elemet ui 项目中解决”分页查询”的小bug"></a>The One   Vue+elemet ui 项目中解决”分页查询”的小bug</h1><h1 id="Bug"><a href="#Bug" class="headerlink" title="Bug:"></a>Bug:</h1><pre><code>vue和element实现的后台分页，当前是第二页，点击搜索，强制设置currentpage为1，但是当前页还是第二页没有改变。
-通俗点就是，先点的那一页，查询了清空后，返回再点那一页就没反应（除了第一页以外）。</code></pre><h1 id="Way"><a href="#Way" class="headerlink" title="Way:"></a>Way:</h1><pre><code>//页面
+<h1 id="The-One-Vue-elemet-ui-项目中解决”分页查询”的小bug"><a href="#The-One-Vue-elemet-ui-项目中解决”分页查询”的小bug" class="headerlink" title="The One   Vue+elemet ui 项目中解决”分页查询”的小bug"></a>The One   Vue+elemet ui 项目中解决”分页查询”的小bug</h1><h2 id="Bug"><a href="#Bug" class="headerlink" title="Bug:"></a>Bug:</h2><pre><code>vue和element实现的后台分页，当前是第二页，点击搜索，强制设置currentpage为1，但是当前页还是第二页没有改变。
+通俗点就是，先点的那一页，查询了清空后，返回再点那一页就没反应（除了第一页以外）。</code></pre><h2 id="Way"><a href="#Way" class="headerlink" title="Way:"></a>Way:</h2><pre><code>//页面
 &lt;el-pagination v-if=&quot;pageshow&quot;&gt;&lt;/el-pagination&gt;
 
 使用v-if绑定数据，当每次搜索的时候就注销掉前一个分页Dom，画面刷新完毕后，渲染一个同样的分页，重新渲染必须放到$nextTick中，这样在使用分页就不会出现问题了。
@@ -434,7 +434,7 @@ search() {
     this.pageshow = false;
     this.getList();
     this.$nextTick(() =&gt; { this.pageshow = true; })    
-},</code></pre><h1 id="The-Two-Vue-elemet-ui-项目中el-dialog对话框拖拽的方法-2020-3-10-17-30"><a href="#The-Two-Vue-elemet-ui-项目中el-dialog对话框拖拽的方法-2020-3-10-17-30" class="headerlink" title="The Two  Vue+elemet ui 项目中el-dialog对话框拖拽的方法  [2020/3/10 17:30]"></a>The Two  Vue+elemet ui 项目中el-dialog对话框拖拽的方法  [2020/3/10 17:30]</h1><h1 id="Way-1"><a href="#Way-1" class="headerlink" title="Way"></a>Way</h1><pre><code>//页面中在el-dialog的地方加入v-dialogDrag
+},</code></pre><h1 id="The-Two-Vue-elemet-ui-项目中el-dialog对话框拖拽的方法-2020-3-10-17-30"><a href="#The-Two-Vue-elemet-ui-项目中el-dialog对话框拖拽的方法-2020-3-10-17-30" class="headerlink" title="The Two  Vue+elemet ui 项目中el-dialog对话框拖拽的方法  [2020/3/10 17:30]"></a>The Two  Vue+elemet ui 项目中el-dialog对话框拖拽的方法  [2020/3/10 17:30]</h1><h2 id="Way-1"><a href="#Way-1" class="headerlink" title="Way"></a>Way</h2><pre><code>//页面中在el-dialog的地方加入v-dialogDrag
 &lt;el-dialog title=&quot;收货地址&quot; :visible.sync=&quot;dialogTableVisible&quot; :modal=&#39;false&#39; v-dialogDrag &gt;
 ...
 &lt;/el-dialog&gt;
@@ -505,7 +505,7 @@ Vue.directive(&#39;dialogDragWidth&#39;, {
             }
         }
     }
-})</code></pre><h1 id="The-Three-vue-路由跳转-2020-3-27-14-46"><a href="#The-Three-vue-路由跳转-2020-3-27-14-46" class="headerlink" title="The Three  vue 路由跳转  [2020/3/27 14:46]"></a>The Three  <strong><em>vue 路由跳转</em></strong>  [2020/3/27 14:46]</h1><h1 id="Way-2"><a href="#Way-2" class="headerlink" title="Way"></a>Way</h1><h2 id="1-带参数："><a href="#1-带参数：" class="headerlink" title="1.带参数："></a>1.带参数：</h2><pre><code>    this.$router.push({ path: &#39;/PurchaseOrder?idSerialnumber=&#39; + row.k3OrderNum });
+})</code></pre><h1 id="The-Three-vue-路由跳转-2020-3-27-14-46"><a href="#The-Three-vue-路由跳转-2020-3-27-14-46" class="headerlink" title="The Three  vue 路由跳转  [2020/3/27 14:46]"></a>The Three  <strong><em>vue 路由跳转</em></strong>  [2020/3/27 14:46]</h1><h2 id="Way-2"><a href="#Way-2" class="headerlink" title="Way"></a>Way</h2><h2 id="1-带参数："><a href="#1-带参数：" class="headerlink" title="1.带参数："></a>1.带参数：</h2><pre><code>    this.$router.push({ path: &#39;/PurchaseOrder?idSerialnumber=&#39; + row.k3OrderNum });
      或 this.$router.push({ path: &#39;/PurchaseOrder&#39;, query: {idSerialnumber:row.k3OrderNum} });</code></pre><h2 id="2-刷新页面："><a href="#2-刷新页面：" class="headerlink" title="2.刷新页面："></a>2.刷新页面：</h2><pre><code>    this.$store.commit(&quot;reloadTagPage&quot;, [{ name: &quot;PurchaseOrder&quot; }, this ]);
     main.js文件中引入方法：
       reloadTagPage(state, data) { //重新打开页面
@@ -555,7 +555,7 @@ Vue.directive(&#39;dialogDragWidth&#39;, {
           let data = {};
           data.idSerialnumber = store.state.selectRow;
           axios({......data:data})......
-        }</code></pre><h1 id="The-Four-前端做分页"><a href="#The-Four-前端做分页" class="headerlink" title="The Four  前端做分页"></a>The Four  前端做分页</h1><h1 id="Way-在el-input上做展示框的分页"><a href="#Way-在el-input上做展示框的分页" class="headerlink" title="Way   [在el-input上做展示框的分页]"></a>Way   [在el-input上做展示框的分页]</h1><pre><code>//template模板上：
+        }</code></pre><h1 id="The-Four-前端做分页"><a href="#The-Four-前端做分页" class="headerlink" title="The Four  前端做分页"></a>The Four  前端做分页</h1><h2 id="Way-在el-input上做展示框的分页"><a href="#Way-在el-input上做展示框的分页" class="headerlink" title="Way   [在el-input上做展示框的分页]"></a>Way   [在el-input上做展示框的分页]</h2><pre><code>//template模板上：
 &lt;el-dialog
     title=&quot;提示: 是否需要合并栈板&quot;
     :visible.sync=&quot;dialogFormVisible&quot;
@@ -644,7 +644,7 @@ soRightClick() {
     this.soInput.recentPage++;
     this.onInputSo(this.soInput.recentPage, this.soInput.recordCount);
   }
-},</code></pre><h1 id="Way-直接对表格做分页"><a href="#Way-直接对表格做分页" class="headerlink" title="Way   [直接对表格做分页]"></a>Way   [直接对表格做分页]</h1><pre><code>loadTable() {
+},</code></pre><h2 id="Way-直接对表格做分页"><a href="#Way-直接对表格做分页" class="headerlink" title="Way   [直接对表格做分页]"></a>Way   [直接对表格做分页]</h2><pre><code>loadTable() {
     let recentPage = this.recentPage;
     let recordCount = this.recordCount;
     this.tableData = this.allData.slice((recentPage-1)*recordCount, recentPage*recordCount);
