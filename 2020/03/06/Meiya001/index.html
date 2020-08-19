@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">奇怪的知识增加了（二） | huilingjun</title>
+  <title itemprop="name">奇怪的知识增加了（四） | huilingjun</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -389,11 +389,11 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(/images/cover/cat2.jpg.webp);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat2.jpg.webp">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(/images/cover/cat1.jpg.webp);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat1.jpg.webp">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      奇怪的知识增加了（二）</h1>
+      奇怪的知识增加了（四）</h1>
       <p class="entry-census">
         <span>
           <a href="huilingjun.github.io">
@@ -405,7 +405,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-3-14<span class="bull">
+        2020-3-6<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
@@ -419,169 +419,43 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <p>今日记录一下网上学习到的关于elemetUI的dialog弹窗拖拽的方法</p>
-<p><img src="/images/cover/(10).jpg.webp" alt=""></p>
-<h1 id="一、-VUE骚操作之this-options-data-【大概一分钟】"><a href="#一、-VUE骚操作之this-options-data-【大概一分钟】" class="headerlink" title="一、 VUE骚操作之this.$options.data()【大概一分钟】"></a>一、 <strong><em>VUE骚操作之this.$options.data()【大概一分钟】</em></strong></h1><pre><code>    重置vue组件的data数据
-在vue单文件组件里有时需要重置data中的数据，比如表单填写一半，用户想重新填写。</code></pre><h2 id="Way"><a href="#Way" class="headerlink" title="Way:"></a>Way:</h2><pre><code>//重置表单方法
-this.form = this.$options.data().form;
-也可以通过给组件 $data 对象赋值来重置来重置整个 $data。
-this.$data = this.$options.data();
+          <p><img src="/images/cover/(3).jpg.webp" alt=""></p>
+<h1 id="一、-小方法-【2020-8-12】"><a href="#一、-小方法-【2020-8-12】" class="headerlink" title="一、 小方法    【2020.8.12】"></a>一、 小方法    【2020.8.12】</h1><h2 id="Way"><a href="#Way" class="headerlink" title="Way :"></a>Way :</h2><pre><code>(一)  状态显示方法
+    1、返回数据做判断、
+    2、过滤器、
+    3、template(slot-sope) --&gt;  el-tag(v-if/v-else-if/v-else)
+    如：
+    &lt;el-table-column&gt;
+        &lt;tamplate slot-scope=&quot;scope&gt;
+            &lt;el-tag v-if=&quot;satus === 1&quot;&gt;成功&lt;/el-tag&gt;
+            &lt;el-tag v-else-if=&quot;satus === 0&quot;&gt;停用&lt;/el-tag&gt;
+            &lt;el-tag v-else&gt;失败&lt;/el-tag&gt;
+        &lt;/tamplate&gt;    
+    &lt;/el-table-column&gt;
 
-结语：
-vue组件可以通过 this.$options 对象获取你编写的任何方法，比如 created( ) 生命周期函数，发现vue新玩法，偷笑.jpg</code></pre><hr>
-<h1 id="二、-vue-elemetUI的el-table点击分页时保存勾选框"><a href="#二、-vue-elemetUI的el-table点击分页时保存勾选框" class="headerlink" title="二、 vue+elemetUI的el-table点击分页时保存勾选框"></a>二、 <strong><em>vue+elemetUI的el-table点击分页时保存勾选框</em></strong></h1><h2 id="Way-1"><a href="#Way-1" class="headerlink" title="Way:"></a>Way:</h2><pre><code>let allTableData = this.setOtherData.tableData;
-let start = (this.recentPage - 1) * this.recordCount;
-let end = this.recentPage * this.recordCount - 1;
-this.tableData = [];
-for (var i = start; i &lt;= end; i++) {
-  if (i &gt;= allTableData.length) {
-    return;
-  }
-  this.tableData.push(allTableData[i]);
+    检索字符：
+    v-if=&quot;[&#39;Hive&#39;,&#39;MyIndex&#39;].indexOf(dbData.currentDbNode) &lt; 0&quot;     （不存在&#39;Hive&#39;,&#39;MyIndex&#39;字符的）
+    v-if=&quot;[&#39;Hive&#39;,&#39;MyIndex&#39;].indexOf(dbData.currentDbNode) &gt;= 0&quot;    （存在&#39;Hive&#39;,&#39;MyIndex&#39;字符的）
+
+(二)  删除对象的某个属性：
+    假设 let obj = {name: &#39;xiaoYang&#39;, age: &#39;18&#39;}
+    delete obj.name     //****
+
+(三)  简单判断两个对象是否相等
+如果俩对象来源都是基本相同的赋值，那么可：if(JSON.stringify(this.object1) === JSON.stringify(this.object2)) { }</code></pre><h1 id="二、表格头部的优化-css3"><a href="#二、表格头部的优化-css3" class="headerlink" title="二、表格头部的优化(css3)"></a>二、表格头部的优化(css3)</h1><pre><code>.tableHeader {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
-// this.$refs.multipleTable.clearSelection();   “去掉”表格的清除勾选方法</code></pre><hr>
-<h1 id="三、-vue自动刷新的几种方法"><a href="#三、-vue自动刷新的几种方法" class="headerlink" title="三、 vue自动刷新的几种方法"></a>三、 <strong><em>vue自动刷新的几种方法</em></strong></h1><h2 id="Way-2"><a href="#Way-2" class="headerlink" title="Way:"></a>Way:</h2><pre><code>1、window.location.reload(),是原生JS提供的方法，this.$router.go(0):是vue路由里面的一种方法，这两种方法都可以达到页面刷新的目的，简单粗暴，但是用户体验不好，相当于按F5刷新页面，会有短暂的白屏，相当于页面的重新载入。
-2、通过路由跳转的方法刷新，具体思路是点击按钮跳转一个空白页，然后再马上跳回来：
-        当前页面：
-            &lt;el-button type=&quot;primary&quot; class=&quot;btn&quot; @click=&quot;btnaction&quot;&gt;摁我刷新页面&lt;/el-button&gt;
-            btnaction() {
-            //    location.reload()
-            //  this.$router.go(0)
-                this.$router.replace({
-                    path:&#39;/empty&#39;,
-                    name:&#39;empty&#39;
-                })
-            }
-        空白页面：
-            created(){
-                this.$router.replace({
-                    path:&#39;/&#39;,
-                    name:&#39;father&#39;
-                })
-            }
-    当点击按钮时地址栏会有快速的地址切换过程。
-3、控制&lt;router-view&gt;&lt;/router-view&gt;的显示与否，在全局组件注册一个方法，该方法控制router-view的显示与否，在子组件调用即可：
-    App.vue:
-        &lt;template&gt;
-            &lt;div id=&quot;app&quot;&gt;
-                &lt;router-view v-if=&quot;isRouterAlive&quot;&gt;&lt;/router-view&gt;
-            &lt;/div&gt;
-        &lt;/template&gt;
-
-        &lt;script&gt;
-        export default {
-            name: &#39;App&#39;,
-            provide() {   // 注册一个方法
-                return {
-                    reload: this.reload
-                }
-            },
-            data() {
-                return {
-                  isRouterAlive: true
-                }
-            },
-            methods: {
-                reload() {
-                    this.isRouterAlive = false
-                    this.$nextTick(function() {
-                        this.isRouterAlive = true
-                        console.log(&#39;reload&#39;)
-                    })
-                }
-            }
-        }
-        &lt;/script&gt;
-    当前组件：
-        inject: [&#39;reload&#39;], // 引入方法
-        this.reload()   //调用方法</code></pre><hr>
-<h1 id="四、-在表格里实现父菜单和子菜单的上下移-2020-3-37-15-50"><a href="#四、-在表格里实现父菜单和子菜单的上下移-2020-3-37-15-50" class="headerlink" title="四、 在表格里实现父菜单和子菜单的上下移  [2020/3/37 15:50]"></a>四、 在表格里实现父菜单和子菜单的上下移  [2020/3/37 15:50]</h1><h2 id="Way-3"><a href="#Way-3" class="headerlink" title="Way"></a>Way</h2><pre><code>首先，在表格插入@row-click这个方法：
-  &lt;el-table
-    v-loading=&quot;listLoading&quot;
-    :data=&quot;tableData&quot;
-    element-loading-text=&quot;Loading&quot;
-    border
-    fit
-    highlight-current-row
-    row-key=&quot;id&quot;
-    :tree-props=&quot;{ children: &#39;children&#39;, hasChildren: &#39;hasChildren&#39; }&quot;
-    @row-click=&quot;getRowData&quot;
-  &gt;
-然后拿到当前行的内容信息：
-  getRowData(row) {
-    this.rowInfo = row;
-  },
-上移方法：
-  moveUp() {
-    for (let i = 0; i &lt; this.tableData.length; i++) {
-      if (this.rowInfo.id == this.tableData[i].id) {
-        if (i == 0) {
-          // alert(&quot;已经是第一条，不可上移&quot;);
-          return;
-        } else {
-          const selectData = this.tableData.splice(i, 1);
-          this.tableData.splice(i - 1, 0, selectData[0]);
-        }
-      }
-    }
-    for (let i = 0; i &lt; this.tableData.length; i++) {
-      for (let j = 0; j &lt; this.tableData[i].children.length; j++) {
-        if (this.rowInfo.id == this.tableData[i].children[j].id) {
-          if (j == 0) {
-            // alert(&quot;已经是第一条，不可上移&quot;);
-            return;
-          } else {
-            const selectData = this.tableData[i].children.splice(j, 1);
-            this.tableData[i].children.splice(j - 1, 0, selectData[0]);
-          }
-        }
-      }
-    }
-  },
-下移方法：
-  moveDown() {
-    // 如果id 相等 那么 就拿到对应的下标
-    for (let i = 0; i &lt; this.tableData.length; i++) {
-      if (this.rowInfo.id == this.tableData[i].id) {
-        if (i == this.tableData.length - 1) {
-          // alert(&quot;已经是最后一条，不可下移&quot;);
-          return;
-        } else {
-          const selectData = this.tableData.splice(i, 1);
-          this.tableData.splice(i + 1, 0, selectData[0]);
-          return;
-        }
-      }
-    }
-    for (let i = 0; i &lt; this.tableData.length; i++) {
-      for (let j = 0; j &lt; this.tableData[i].children.length; j++) {
-        if (this.rowInfo.id == this.tableData[i].children[j].id) {
-          if (j == this.tableData[i].children.length - 1) {
-            // alert(&quot;已经是最后一条，不可下移&quot;);
-            return;
-          } else {
-            const selectData = this.tableData[i].children.splice(j, 1);
-            this.tableData[i].children.splice(j + 1, 0, selectData[0]);
-            return;
-          }
-        }
-      }
-    }
-  },</code></pre><h1 id="五、-引入图片路径-模块引入、标签引入、css引入的区别-（待完善）"><a href="#五、-引入图片路径-模块引入、标签引入、css引入的区别-（待完善）" class="headerlink" title="五、 引入图片路径: (模块引入、标签引入、css引入的区别) （待完善）"></a>五、 引入图片路径: (模块引入、标签引入、css引入的区别) （待完善）</h1><pre><code>&lt;img :src=&quot;require(&#39;@/assets/image/antiset.png&#39;)&quot; alt=&quot;&quot;&gt;   //标签内引入
-
-模块引入：
-  1，引入：import any from &#39;./......路径&#39;;（any是自定义的一个名称，可以当做变量直接使用）
-     导出：export  default  “你好”；
-  2，引入：import { time as abc } from &#39;./......路径&#39;;（必须加大括号引起来！as可以将导入的模块名称起别名）
-     导出：export const time=&quot;十二点&quot;；
-
-  如果需要动态引入，可以使用import(&#39;./路径&#39;);为promise对象，引入成功直接.then(res=&gt;{
-  });(注意在res中可以使用引入的文件！) 
-  import(&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;).then(res=&gt;
-      $(&quot;body&quot;).css({background:&quot;blue&quot;})
-  );
-
-  面试可能会问：import 和require commonjs和ES6的区别[旺柴]</code></pre>
+//修改element默认样式
+.el-table th .tableHeader div {
+    white-space: normal !important;
+    line-height: 28px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}</code></pre><h1 id="三、-滚动加载（一次加载-N-条）的封装-xdh-scroll-不会，待发展"><a href="#三、-滚动加载（一次加载-N-条）的封装-xdh-scroll-不会，待发展" class="headerlink" title="三、 滚动加载（一次加载 N 条）的封装 xdh-scroll (不会，待发展)"></a>三、 滚动加载（一次加载 N 条）的封装 xdh-scroll (不会，待发展)</h1><h1 id="四、-组件通信的八种方式"><a href="#四、-组件通信的八种方式" class="headerlink" title="四、 组件通信的八种方式"></a>四、 组件通信的八种方式</h1><h1 id="五、-云汇项目代码"><a href="#五、-云汇项目代码" class="headerlink" title="五、 云汇项目代码"></a>五、 云汇项目代码</h1><h1 id="六、-跨域"><a href="#六、-跨域" class="headerlink" title="六、 跨域"></a>六、 跨域</h1><h1 id="七、-CSS3"><a href="#七、-CSS3" class="headerlink" title="七、 CSS3"></a>七、 CSS3</h1>
         </div>
         <!-- .entry-content -->
         <div class="single-reward">
@@ -612,15 +486,15 @@ for (var i = start; i &lt;= end; i++) {
           
             <div class="post-nepre half previous">
           
-            <a href="/2020/04/22/Diary003/" rel="prev">
+            <a href="/2020/03/14/Diary002/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/dog4.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/dog4.jpg.webp">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat2.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/cat2.jpg.webp">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                奇怪的知识增加了（三）</h3>
+                奇怪的知识增加了（二）</h3>
                 <hr>
               </div>
             </a>
@@ -630,7 +504,7 @@ for (var i = start; i &lt;= end; i++) {
           
             <div class="post-nepre half next">
           
-            <a href="/2020/03/06/Meiya001/" rel="next">
+            <a href="/2020/03/06/Diary001/" rel="next">
               <div class="background">
                 <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/cat1.jpg.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/cat1.jpg.webp">
               </div>
@@ -638,7 +512,7 @@ for (var i = start; i &lt;= end; i++) {
               Next Post</span>
               <div class="info">
                 <h3>
-                奇怪的知识增加了（四）</h3>
+                奇怪的知识增加了（一）</h3>
                 <hr>
               </div>
             </a>
